@@ -60,6 +60,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Auto-update fields users
+    '{{cookiecutter.repo_name}}.common.middleware.AuthorMiddleware',
 )
 
 # MIGRATIONS CONFIGURATION
@@ -236,3 +238,7 @@ BROKER_URL = env("CELERY_BROKER_URL", default='django://')
 ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
+
+# AuthorMiddleware defaults
+AUTHOR_CREATED_BY_FIELD_NAME = 'created_by'
+AUTHOR_UPDATED_BY_FIELD_NAME = 'updated_by'
