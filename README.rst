@@ -13,7 +13,7 @@ cookiecutter-django
    :target: https://gitter.im/pydanny/cookiecutter-django?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
 
-A Cookiecutter_ template for Django.
+Another Cookiecutter_ template for Django.
 
 .. _cookiecutter: https://github.com/audreyr/cookiecutter
 
