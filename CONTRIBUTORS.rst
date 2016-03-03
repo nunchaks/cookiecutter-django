@@ -12,7 +12,7 @@ Name                        Github        Twitter
 =========================== ============= ===========
 Daniel Roy Greenfeld        `@pydanny`_   @pydanny
 Audrey Roy Greenfeld*       `@audreyr`_   @audreyr
-Fábio C. Barrionuevo da Luz `@luzfcb`_
+Fábio C. Barrionuevo da Luz `@luzfcb`_    @luzfcb
 Saurabh Kumar               `@theskumar`_ @_theskumar
 Jannis Gebauer              `@jayfk`_
 Burhan Khalid               `@burhan`_    @burhan
@@ -63,6 +63,7 @@ Listed in alphabetical order.
   Daniele Tricoli          `@eriol`_
   David Díaz               `@ddiazpinto`_                @DavidDiazPinto
   Davur Clementsen         `@dsclementsen`_             @davur
+  Eraldo Energy            `@eraldo`_
   Eyad Al Sibai            `@eyadsibai`_
   Felipe Arruda            `@arruda`_
   Garry Cairns             `@garry-cairns`_
@@ -106,6 +107,7 @@ Listed in alphabetical order.
 .. _@ad-m: https://github.com/ad-m
 .. _@alb3rto: https://github.com/alb3rto
 .. _@caffodian: https://github.com/caffodian
+.. _@eraldo: https://github.com/eraldo
 .. _@andor-pierdelacabeza: https://github.com/andor-pierdelacabeza
 .. _@amjith: https://github.com/amjith
 .. _@zcho: https://github.com/zcho

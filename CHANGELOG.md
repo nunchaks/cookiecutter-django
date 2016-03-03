@@ -2,6 +2,45 @@
 All enhancements and patches to cookiecutter-django will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2016-03-01]
+### Changed
+- Update version of Django, flake8, pyflakes, pytest, factory_boy, ipdb, Werkzeug, gevent (@luzfcb)
+- Update version of Hitch tests dependencies: click, hitchserve, hitchsystem, hitchtest, ipython, psutil, python-dateutil(@luzfcb)
+- Update Tether (JS) version to 1.2.0 (@luzfcb)
+
+## [2016-02-24]
+### Added
+- Beginning support for `py.test` (@pydanny)
+
+### Changed
+- Fixed missing div closing tag for "container" on user_list.html (@Eraldo)
+
+## [2016-02-18]
+### Changed
+- The status of the registration (open or closed) is now read from the project environment instead of hardcoded in the common settings file. (@Eraldo)
+- Renamed the adapter.py file to adapters.py to match the django naming convention. (@Eraldo)
+
+
+
+## [2016-02-15]
+### Changed
+- In `users` app adapter, fix `is_open_for_signup` missing parameter (@oryx2)
+- Fixes and improvements in Hitch tests , see [#485](https://github.com/pydanny/cookiecutter-django/pull/485) (@crdoconnor)
+
+
+## [2016-02-12]
+### Changed
+- Fixed typo (@yunti)
+
+## [2016-02-07]
+### Changed
+- In `users` app, use Django 1.9 `LoginRequiredMixin` instead of django-braces implementation (@yunti)
+- Update native OS libraries of Hitch Test, because [unixpackage](https://github.com/unixpackage/unixpackage) now supports multiple versions of same Linux distribution (@crdoconnor)
+- Update AngularJS version to 1.5.0 (@luzfcb)
+- Update version of wheel, Pillow, django_coverage_plugin (@luzfcb)
+- Update version of Hitch tests dependencies: decorator, hitchselenium, ipython, ptyprocess, selenium (@luzfcb)
+- Provided options for FOSS license choices, or for private efforts, no written license (@pydanny)
+
 ## [2016-02-01]
 ### Changed
 - Update version of Django and django-floppyforms (@luzfcb)
