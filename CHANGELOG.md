@@ -2,6 +2,41 @@
 All enhancements and patches to cookiecutter-django will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### [2016-04-07]
+### Changed
+- Pycharm Support (including debugging in Docker) @noisy
+
+### [2016-03-23]
+### Changed
+- Fixed issue on LICENSE file generation (@romanosipenko)
+- In install_python_dependencies.sh file, Fixed wrong reference to python3 if use_python2 was set to y (@luzfcb @noisy)
+
+### [2016-03-16]
+### Changed
+- Set the correct postgres username in dev.yml (@calculuscowboy)
+
+## [2016-03-14]
+### Changed
+- Enforce `repo_name` as proper python module (@catherinedevlin)
+
+## [2016-03-08]
+### Changed
+- Docker configuration now uses docker-compose format v2 (@aeikenberry)
+- Make sure that STATIC_URL != MEDIA_URL (@cdvv7788)
+- fix minor typos in project README (@menzenski)
+- Updated docker docs (@jayfk)
+
+### Added
+- Added database controls for docker (@jayfk)
+
+
+## [2016-03-05]
+### Changed
+- Update version of Django, celery, django-test-plus (@luzfcb)
+- Update version of Hitch tests dependencies: jupyter_client (@luzfcb)
+- Update 'now' date in cookiecutter.json (@luzfcb)
+- Update the usage example in README (@luzfcb)
+
 ## [2016-03-01]
 ### Changed
 - Update version of Django, flake8, pyflakes, pytest, factory_boy, ipdb, Werkzeug, gevent (@luzfcb)
