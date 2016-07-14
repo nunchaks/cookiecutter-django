@@ -41,3 +41,5 @@ celerybeat-schedule.db
 .coverage
 .tox
 .cache
+
+env_*
