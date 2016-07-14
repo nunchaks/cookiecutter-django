@@ -218,6 +218,7 @@ ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
 ACCOUNT_ADAPTER = '{{cookiecutter.repo_name}}.users.adapter.AccountAdapter'
 SOCIALACCOUNT_ADAPTER = '{{cookiecutter.repo_name}}.users.adapter.SocialAccountAdapter'
 
+
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'

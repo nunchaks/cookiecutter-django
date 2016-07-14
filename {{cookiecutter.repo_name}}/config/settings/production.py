@@ -137,17 +137,15 @@ INSTALLED_APPS += ("gunicorn", )
 # stored files.
 {% if cookiecutter.use_whitenoise == 'y' -%}
 ## MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
-{% else %}
-
-
+{%- endif %}
 
 # Static Assets
 # ------------------------
 {% if cookiecutter.use_whitenoise == 'y' -%}
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 {% else %}
-STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
-STATIC_URL = MEDIA_URL
+STATIC_URL = 'https://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
+STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
 
 # See: https://github.com/antonagestam/collectfast
 # For Django 1.7+, 'collectfast' should come before
