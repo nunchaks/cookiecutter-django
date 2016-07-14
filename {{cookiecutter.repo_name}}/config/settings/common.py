@@ -43,7 +43,7 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    '{{ cookiecutter.repo_name }}.users',  # custom users app
+    '{{ cookiecutter.repo_name }}.users.apps.UsersConfig',  # custom users app
     # Your stuff: custom apps go here
 )
 
@@ -53,7 +53,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE_CLASSES = (
-    # Make sure djangosecure.middleware.SecurityMiddleware is listed first
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -213,9 +213,10 @@ AUTHENTICATION_BACKENDS = (
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
 ACCOUNT_ADAPTER = '{{cookiecutter.repo_name}}.users.adapter.AccountAdapter'
 SOCIALACCOUNT_ADAPTER = '{{cookiecutter.repo_name}}.users.adapter.SocialAccountAdapter'
-ACCOUNT_ALLOW_REGISTRATION = True
 
 # Custom user app defaults
 # Select the correct user model
@@ -234,8 +235,30 @@ BROKER_URL = env("CELERY_BROKER_URL", default='django://')
 ########## END CELERY
 {% endif %}
 
+# django-compressor
+# ------------------------------------------------------------------------------
+{% if cookiecutter.use_compressor == 'y'-%}
+INSTALLED_APPS += ("compressor", )
+STATICFILES_FINDERS += ("compressor.finders.CompressorFinder", )
+{%- endif %}
+
 # Location of root django.contrib.admin URL, use {% raw %}{% url 'admin:index' %}{% endraw %}
 ADMIN_URL = r'^admin/'
+
+{% if cookiecutter.js_task_runner == 'Webpack' %}
+# WEBPACK
+# ------------------------------------------------------------------------------
+INSTALLED_APPS += ('webpack_loader',)
+# Webpack Local Stats file
+STATS_FILE = ROOT_DIR('webpack-stats.json')
+# Webpack config
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'STATS_FILE': STATS_FILE
+    }
+}
+{% endif %}
+
 
 # Your common stuff: Below this line define 3rd party library settings
 
