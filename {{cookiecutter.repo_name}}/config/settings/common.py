@@ -215,8 +215,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
-ACCOUNT_ADAPTER = '{{cookiecutter.repo_name}}.users.adapter.AccountAdapter'
-SOCIALACCOUNT_ADAPTER = '{{cookiecutter.repo_name}}.users.adapter.SocialAccountAdapter'
+ACCOUNT_ADAPTER = '{{cookiecutter.repo_name}}.users.adapters.AccountAdapter'
+SOCIALACCOUNT_ADAPTER = '{{cookiecutter.repo_name}}.users.adapters.SocialAccountAdapter'
 
 
 # Custom user app defaults
