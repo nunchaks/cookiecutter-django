@@ -7,7 +7,7 @@ wheel==0.29.0
 {%- endif %}
 
 # Bleeding edge Django
-django==1.9.7
+django==1.9.9
 
 # Configuration
 django-environ==0.4.0
@@ -19,17 +19,17 @@ whitenoise==3.2
 # Forms
 django-braces==1.9.0
 django-crispy-forms==1.6.0
-django-floppyforms==1.6.2
+django-floppyforms==1.7.0
 
 # Models
-django-model-utils==2.5
+django-model-utils==2.5.2
 
 # Images
-Pillow==3.3.0
+Pillow==3.3.1
 
 # For user registration, either via email or social
 # Well-built with regular release cycles!
-django-allauth==0.25.2
+django-allauth==0.27.0
 
 {% if cookiecutter.windows == 'y' -%}
 # On Windows, you must download/install psycopg2 manually
@@ -44,10 +44,10 @@ unicode-slugify==0.1.3
 django-autoslug==1.9.3
 
 # Time zones support
-pytz==2016.4
+pytz==2016.6.1
 
 # Redis support
-django-redis==4.4.3
+django-redis==4.4.4
 redis>=2.10.0
 
 {% if cookiecutter.use_celery == "y" %}
@@ -55,12 +55,12 @@ celery==3.1.23
 {% endif %}
 
 {% if cookiecutter.use_compressor == "y" %}
-django_compressor==2.0
+django_compressor==2.1
 {% endif %}
 
 {% if cookiecutter.js_task_runner == 'Webpack' -%}
 # Webpack
-django-webpack-loader==0.3.0
+django-webpack-loader==0.3.3
 {%- endif %}
 
 # Your custom requirements go here
