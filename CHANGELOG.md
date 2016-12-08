@@ -17,7 +17,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2016-03-14]
 ### Changed
-- Enforce `repo_name` as proper python module (@catherinedevlin)
+- Enforce `project_slug` as proper python module (@catherinedevlin)
 
 ## [2016-03-08]
 ### Changed

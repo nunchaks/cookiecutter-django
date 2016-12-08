@@ -4,7 +4,7 @@ Does the following:
 1. Generates and saves random secret key
 2. Removes the taskapp if celery isn't going to be used
 3. Removes the .idea directory if PyCharm isn't going to be used
-4. Copy files from /docs/ to {{ cookiecutter.repo_name }}/docs/
+4. Copy files from /docs/ to {{ cookiecutter.project_slug }}/docs/
 
     TODO: this might have to be moved to a pre_gen_hook
 
@@ -97,7 +97,7 @@ def remove_task_app(project_directory):
     # Determine the local_setting_file_location
     task_app_location = os.path.join(
         PROJECT_DIRECTORY,
-        '{{ cookiecutter.repo_name }}/taskapp'
+        '{{ cookiecutter.project_slug }}/taskapp'
     )
     shutil.rmtree(task_app_location)
 
@@ -142,5 +142,5 @@ if '{{ cookiecutter.use_celery }}'.lower() == 'n':
 if '{{ cookiecutter.use_pycharm }}'.lower() != 'y':
     remove_pycharm_dir(PROJECT_DIRECTORY)
 
-# 4. Copy files from /docs/ to {{ cookiecutter.repo_name }}/docs/
+# 4. Copy files from /docs/ to {{ cookiecutter.project_slug }}/docs/
 # copy_doc_files(PROJECT_DIRECTORY)
