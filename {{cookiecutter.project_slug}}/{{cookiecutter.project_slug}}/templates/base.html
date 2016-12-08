@@ -59,8 +59,7 @@
             <ul class="nav navbar-nav pull-right">
                 {% if request.user.is_authenticated %}
                 <li>
-                    <a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile"
-                        %}</a>
+                    <a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
                 </li>
                 <li>
                     <a href="{% url 'account_logout' %}">{% trans "Logout" %}</a>
