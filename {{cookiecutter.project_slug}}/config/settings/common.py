@@ -44,7 +44,7 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    '{{ cookiecutter.project_slug }}.commmon',  # shared librairies
+    '{{ cookiecutter.project_slug }}.common',  # shared librairies
     '{{ cookiecutter.project_slug }}.users.apps.UsersConfig',  # custom users app
     # Your stuff: custom apps go here
 )
