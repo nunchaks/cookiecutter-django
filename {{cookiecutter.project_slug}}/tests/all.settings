@@ -14,7 +14,7 @@ environment_variables:
 window_size:
   width: 1024
   height: 600
-python_version: {% if cookiecutter.use_python2 == 'n' %}3.5.0{% else %}2.7.10{% endif %}
+python_version: {% if cookiecutter.use_python3 == 'y' %}3.5.0{% else %}2.7.10{% endif %}
 environment:
   - approved_platforms:
     - linux
