@@ -281,7 +281,7 @@ RAVEN_CONFIG = {
     'CELERY_LOGLEVEL': env.int('DJANGO_SENTRY_LOG_LEVEL', logging.INFO),
     'DSN': SENTRY_DSN
 }
-{% elif cookiecutter.use_sentry == "n" %}
+{% elif cookiecutter.use_sentry_for_error_reporting == "n" %}
 # LOGGING CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
