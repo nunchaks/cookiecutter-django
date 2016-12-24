@@ -13,7 +13,7 @@ AUTHOR_UPDATED_BY_FIELD_NAME = getattr(settings, 'AUTHOR_UPDATED_BY_FIELD_NAME',
 # Source: https://gist.github.com/mindlace/3918300
 class AuthorMiddleware(object):
     def process_request(self, request):
-        if not request.method in ('GET', 'HEAD', 'OPTIONS', 'TRACE'):
+        if request.method not in ('GET', 'HEAD', 'OPTIONS', 'TRACE'):
             if hasattr(request, 'user') and request.user.is_authenticated():
                 user = request.user
             else:
