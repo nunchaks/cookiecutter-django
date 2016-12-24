@@ -24,7 +24,7 @@ class User(AbstractUser):
     @property
     def short_name(self):
         if self.last_name:
-            return u"%s %s." % (self.first_name, self.last_name[0].upper())
+            return u"%s %s." % (self.first_name, str(self.last_name)[0].upper())
         elif self.first_name:
             return u"%s" % self.first_name
         else:
