@@ -97,7 +97,7 @@ X_FRAME_OPTIONS = 'DENY'
 ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['{{cookiecutter.domain_name}}'])
 # END SITE CONFIGURATION
 
-INSTALLED_APPS += ("gunicorn", )
+INSTALLED_APPS += ("gunicorn", 'django_jenkins',)
 
 
 
@@ -111,6 +111,7 @@ INSTALLED_APPS += ("gunicorn", )
 
 INSTALLED_APPS += (
     'storages',
+
 )
 
 
@@ -134,17 +135,14 @@ AWS_HEADERS = {
 
 # URL that handles the media served from MEDIA_ROOT, used for managing
 # stored files.
-{% if cookiecutter.use_whitenoise == 'y' -%}
-MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
-{% else %}
 #  See:http://stackoverflow.com/questions/10390244/
 from storages.backends.s3boto import S3BotoStorage
+
 StaticRootS3BotoStorage = lambda: S3BotoStorage(location='static')
 MediaRootS3BotoStorage = lambda: S3BotoStorage(location='media')
-DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
 
+DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
 MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
-{%- endif %}
 
 {%- endif %}
 
@@ -187,10 +185,9 @@ SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 # Anymail with Mailgun
 INSTALLED_APPS += ("anymail", )
 ANYMAIL = {
-    "MAILGUN_API_KEY": env('DJANGO_MAILGUN_API_KEY'),
-    "MAILGUN_SENDER_DOMAIN": env('MAILGUN_SENDER_DOMAIN')
+    "SENDGRID_API_KEY": env('DJANGO_SENDGRID_API_KEY'),
 }
-EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"
+EMAIL_BACKEND = "anymail.backends.sendgrid.SendGridBackend"
 
 
 # TEMPLATE CONFIGURATION
@@ -335,4 +332,9 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 
 
 # Your production stuff: Below this line define 3rd party library settings
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
+PROJECT_APPS = LOCAL_APPS
+JENKINS_TASKS = (
+    'django_jenkins.tasks.run_pylint',
+    'django_jenkins.tasks.run_pep8',
+)

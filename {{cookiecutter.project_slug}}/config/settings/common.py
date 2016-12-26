@@ -117,7 +117,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 TIME_ZONE = '{{ cookiecutter.timezone }}'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-fr'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
