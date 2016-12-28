@@ -38,6 +38,7 @@ raven==5.32.0
 opbeat==3.5.2
 {%- endif %}
 
+<<<<<<< HEAD
 # Test requirements
 # -----------------
 coverage==4.2
@@ -48,3 +49,20 @@ factory-boy==2.8.1
 # pytest
 pytest-django==3.1.2
 pytest-sugar==0.7.1
+=======
+
+# Test requirements
+# ----------------------
+coverage==4.2
+flake8==3.2.1 # pyup: != 2.6.0
+django-test-plus==1.0.16
+factory_boy==2.7.0
+
+# pytest
+pytest-django==3.1.2
+pytest-sugar==0.7.1
+
+django-jenkins==0.110.0
+pylint==1.6.4
+pep8==1.7.0
+>>>>>>> 212cac15976f5d72d3c3f1ffc9a87d7a24571f2e
