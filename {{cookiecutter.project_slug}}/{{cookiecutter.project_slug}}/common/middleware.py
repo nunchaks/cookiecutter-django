@@ -5,13 +5,14 @@
 from django.conf import settings
 from django.db.models import signals
 from django.utils.functional import curry
+from django.utils.deprecation import MiddlewareMixin
 
 AUTHOR_CREATED_BY_FIELD_NAME = getattr(settings, 'AUTHOR_CREATED_BY_FIELD_NAME', 'created_by')
 AUTHOR_UPDATED_BY_FIELD_NAME = getattr(settings, 'AUTHOR_UPDATED_BY_FIELD_NAME', 'updated_by')
 
 
 # Source: https://gist.github.com/mindlace/3918300
-class AuthorMiddleware(object):
+class AuthorMiddleware(MiddlewareMixin, object):
     def process_request(self, request):
         if request.method not in ('GET', 'HEAD', 'OPTIONS', 'TRACE'):
             if hasattr(request, 'user') and request.user.is_authenticated():
