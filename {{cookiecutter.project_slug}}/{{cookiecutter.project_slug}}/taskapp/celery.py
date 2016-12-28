@@ -1,14 +1,14 @@
-{% if cookiecutter.use_celery == "y" %}
+{% if cookiecutter.use_celery == 'y' %}
 from __future__ import absolute_import
 import os
 from celery import Celery
-from django.apps import AppConfig
+from django.apps import apps, AppConfig
 from django.conf import settings
 
 
 if not settings.configured:
     # set the default Django settings module for the 'celery' program.
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")  # pragma: no cover
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.local')  # pragma: no cover
 
 
 app = Celery('{{cookiecutter.project_slug}}')
@@ -22,9 +22,10 @@ class CeleryConfig(AppConfig):
         # Using a string here means the worker will not have to
         # pickle the object when using Windows.
         app.config_from_object('django.conf:settings')
-        app.autodiscover_tasks(lambda: settings.INSTALLED_APPS, force=True)
+        installed_apps = [app_config.name for app_config in apps.get_app_configs()]
+        app.autodiscover_tasks(lambda: installed_apps, force=True)
 
-        {% if cookiecutter.use_sentry == "y" -%}
+        {% if cookiecutter.use_sentry_for_error_reporting == 'y' -%}
         if hasattr(settings, 'RAVEN_CONFIG'):
             # Celery signal registration
             from raven import Client as RavenClient
@@ -36,7 +37,7 @@ class CeleryConfig(AppConfig):
             raven_register_signal(raven_client)
         {%- endif %}
 
-        {% if cookiecutter.use_opbeat == "y" -%}
+        {% if cookiecutter.use_opbeat == 'y' -%}
         if hasattr(settings, 'OPBEAT'):
             from opbeat.contrib.django.models import client as opbeat_client
             from opbeat.contrib.django.models import logger as opbeat_logger

@@ -9,7 +9,6 @@ wheel==0.29.0
 # Bleeding edge Django
 django==1.10.4
 
-
 # Configuration
 django-environ==0.4.1
 {% if cookiecutter.use_whitenoise == 'y' -%}
@@ -21,10 +20,8 @@ whitenoise==3.2.2
 django-braces==1.10.0
 django-crispy-forms==1.6.1
 
-
 # Models
 django-model-utils==2.6
-
 
 # Images
 Pillow==3.4.2
@@ -41,29 +38,23 @@ django-allauth==0.29.0
 psycopg2==2.6.2
 {%- endif %}
 
-
 # Unicode slugification
 awesome-slugify==1.6.5
 
-
 # Time zones support
 pytz==2016.10
-
 
 # Redis support
 django-redis==4.6.0
 redis>=2.10.5
 
-
 {% if cookiecutter.use_celery == "y" %}
 celery==3.1.24
 {% endif %}
 
-
 {% if cookiecutter.use_compressor == "y" %}
 rcssmin==1.0.6 {% if cookiecutter.windows == 'y' %}--install-option="--without-c-extensions"{% endif %}
-django_compressor==2.1
+django-compressor==2.1
 {% endif %}
-
 
 # Your custom requirements go here

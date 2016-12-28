@@ -1,5 +1,5 @@
-# Pro-tip: Try not to put anything here. There should be no dependency in
-#	production that isn't in development.
+# Pro-tip: Try not to put anything here. Avoid dependencies in
+#	production that aren't in development.
 -r base.txt
 
 {% if cookiecutter.windows == 'y' -%}
@@ -9,26 +9,22 @@
 psycopg2==2.6.2
 {%- endif %}
 
-
 # WSGI Handler
 # ------------------------------------------------
-gevent==1.2a1
+gevent==1.2a2
 gunicorn==19.6.0
-
 
 # Static and Media Storage
 # ------------------------------------------------
-
-boto==2.43.0  ## If AWS
-django-storages-redux==1.3.2  ## If AWS
+boto==2.45.0
+django-storages-redux==1.3.2
 {% if cookiecutter.use_whitenoise != 'y' -%}
-Collectfast==0.3.1
+Collectfast==0.4.0
 {%- endif %}
 
 # Email backends for Mailgun, Postmark, SendGrid and more
 # -------------------------------------------------------
 django-anymail==0.6.1
-
 
 {% if cookiecutter.use_sentry_for_error_reporting == "y" -%}
 # Raven is the Sentry client
@@ -39,5 +35,16 @@ raven==5.32.0
 {% if cookiecutter.use_opbeat == "y" -%}
 # Opbeat agent for performance monitoring
 # -----------------------------------------
-opbeat==3.5.1
+opbeat==3.5.2
 {%- endif %}
+
+# Test requirements
+# -----------------
+coverage==4.2
+flake8==3.2.1 # pyup: != 2.6.0
+django-test-plus==1.0.16
+factory-boy==2.8.1
+
+# pytest
+pytest-django==3.1.2
+pytest-sugar==0.7.1
