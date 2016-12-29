@@ -40,7 +40,6 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-    'djangobower',  # django-bower
 )
 
 # Apps specific for this project go here.
@@ -188,7 +187,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'djangobower.finders.BowerFinder',
 )
 
 # MEDIA CONFIGURATION
@@ -290,9 +288,3 @@ ADMIN_URL = r'^admin/'
 # AuthorMiddleware defaults
 AUTHOR_CREATED_BY_FIELD_NAME = 'created_by'
 AUTHOR_UPDATED_BY_FIELD_NAME = 'updated_by'
-
-# Bower options
-BOWER_COMPONENTS_ROOT = str(APPS_DIR('components'))
-BOWER_INSTALLED_APPS = (
-    'bootstrap',
-)

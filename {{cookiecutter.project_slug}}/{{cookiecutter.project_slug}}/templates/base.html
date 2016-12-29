@@ -14,9 +14,9 @@
     <![endif]-->
 
     {% block css %}
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- bower:css -->
+    <link rel="stylesheet" href="{% static '../static/components/bootstrap/dist/css/bootstrap.css' %}" />
+    <!-- endbower -->
 
     <!-- Your stuff: Third-party css libraries go here -->
     {% endraw %}{% if cookiecutter.use_compressor == "y" %}{% raw %}{% compress css %}{% endraw %}{% endif %}{% raw %}
@@ -103,16 +103,12 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 {% block javascript %}
-<!-- Latest JQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
-<!-- Tether - a requirement for Bootstrap tooltips -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+      <!-- bower:js -->
+      <script src="{% static '../static/components/jquery/dist/jquery.js' %}"></script>
+      <script src="{% static '../static/components/bootstrap/dist/js/bootstrap.js' %}"></script>
+      <script src="{% static '../static/components/tether/dist/js/tether.js' %}"></script>
+      <!-- endbower -->
 
       <!-- Your stuff: Third-party javascript libraries go here -->
 

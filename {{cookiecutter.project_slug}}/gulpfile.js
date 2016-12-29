@@ -18,6 +18,7 @@ var gulp = require('gulp'),
       imagemin = require('gulp-imagemin'),
       exec = require('child_process').exec,
       runSequence = require('run-sequence'),
+      wiredep = require('wiredep').stream,
       connect = require('gulp-connect');
       //browserSync = require('browser-sync').create(),
       //reload = browserSync.reload;
@@ -90,6 +91,22 @@ gulp.task('runServer', function() {
   });
 });
 
+// Add bower scripts and styles automatically
+gulp.task('bower', function () {
+  gulp.src(paths.templates + '/**/*.html')
+    .pipe(wiredep({
+      fileTypes: {
+        html: {
+          replace: {
+            js: '<script src="{% static \'{{filePath}}\' %}"></script>',
+            css: '<link rel="stylesheet" href="{% static \'{{filePath}}\' %}" />'
+          }
+        }
+      }
+    }))
+    .pipe(gulp.dest(paths.templates));
+});
+
 // Browser sync server for live reload
 /*gulp.task('browserSync', function() {
     browserSync.init(
@@ -106,7 +123,7 @@ gulp.task('connect', function() {
 
 // Default task
 gulp.task('default', function() {
-    runSequence(['styles', 'scripts', 'imgCompression'], 'runServer', 'connect', 'watch');
+    runSequence(['styles', 'scripts', 'imgCompression', 'bower'], 'runServer', 'connect', 'watch');
 });
 
 ////////////////////////////////
@@ -118,9 +135,9 @@ gulp.task('watch', function() {
 
   gulp.watch(paths.sass + '/*.scss', ['styles']);
   gulp.watch(paths.js + '/*.js', ['scripts']);
-  //gulp.watch(paths.js + '/*.js', ['scripts']).on("change", reload);
   gulp.watch(paths.images + '/*', ['imgCompression']);
   gulp.watch(paths.templates + '/**/*.html', ['html']);
+  //gulp.watch(paths.js + '/*.js', ['scripts']).on("change", reload);
   //gulp.watch(paths.templates + '/**/*.html').on("change", reload);
 
 });
