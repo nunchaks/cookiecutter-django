@@ -1,0 +1,255 @@
+{% load staticfiles i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}Test Project{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    {% block css %}
+
+
+        <!-- bower:css -->
+        <link rel="stylesheet" href="{% static '../static/components/bootstrap/dist/css/bootstrap.css' %}" />
+        <link rel="stylesheet" href="{% static '../static/components/font-awesome/css/font-awesome.css' %}" />
+        <!-- endbower -->
+
+        <link href="{% static 'themes/dashboard/css/custom.css' %}" rel="stylesheet">
+
+        <!-- Your stuff: Third-party css libraries go here -->
+
+
+        <!-- This file store project specific CSS -->
+        <link href="{% static 'css/project.css' %}" rel="stylesheet">
+
+    {% endblock %}
+
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title">
+                    <a href="{% url 'home' %}" class="site_title">
+                        <i class="fa fa-paw"></i>
+                        <span>Test Project</span>
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>Section name</h3>
+                        <ul class="nav side-menu">
+                            <li class="active">
+                                <a>
+                                    <i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu" style="display: block;">
+                                    <li class="current-page"><a href="{% url 'home' %}">Accueil</a></li>
+                                    <li><a href="{% url 'about' %}">A propos</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav class="" role="navigation">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            {# TODO: replace with check if debug mode #}
+                            {% if 1 %}
+                                <a href="{% url 'dashboard-cheatsheet' %}">Cheatsheet</a>
+                            {% endif %}
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
+                                <img src="images/img.jpg" alt="">John Doe
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="javascript:;"> Profile</a></li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="badge bg-red pull-right">50%</span>
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
+                                <li><a href="javascript:;">Help</a></li>
+                                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                            </ul>
+                        </li>
+
+                        <li role="presentation" class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="badge bg-green">6</span>
+                            </a>
+                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="text-center">
+                                        <a>
+                                            <strong>See All Alerts</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+                {% block content %}
+                    <p>Use this document as a way to quick start any new project.</p>
+                {% endblock content %}
+            </div>
+        </div>
+
+        <footer>
+            <div class="pull-right">
+                &copy; 2016 Company, Inc.
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+</div>
+
+{% comment %}
+<nav class="navbar navbar-inverse">
+    <div class="container">
+
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="{% url 'home' %}">{% trans "Home" %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'about' %}">{% trans "About" %}</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav pull-right">
+                {% if request.user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'account_logout' %}">{% trans "Logout" %}</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a id="sign-up-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
+                    </li>
+                    <li>
+                        <a id="log-in-link" href="{% url 'account_login' %}">{% trans "Log In" %}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endcomment %}
+
+
+{% block modal %}{% endblock modal %}
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+{% block javascript %}
+
+    <!-- bower:js -->
+    <script src="{% static '../static/components/jquery/dist/jquery.js' %}"></script>
+    <script src="{% static '../static/components/bootstrap/dist/js/bootstrap.js' %}"></script>
+    <script src="{% static '../static/components/tether/dist/js/tether.js' %}"></script>
+    <!-- endbower -->
+
+    <script src="{% static 'themes/dashboard/js/custom.js' %}"></script>
+
+    <!-- Your stuff: Third-party javascript libraries go here -->
+
+
+    <!-- place project specific Javascript in this file -->
+
+    <script src="{% static 'js/project.js' %}"></script>
+
+
+{% endblock javascript %}
+</body>
+</html>
+

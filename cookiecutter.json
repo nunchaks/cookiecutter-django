@@ -20,6 +20,7 @@
     "use_docker": "n",
     "use_heroku": "n",
     "use_compressor": "n",
+    /*"theme_picker": ["Choose later", "Default", "Dashboard"],*/
     "postgresql_version": ["9.6", "9.5", "9.4", "9.3", "9.2"],
     "js_task_runner": ["Gulp", "Grunt", "None"],
     "use_lets_encrypt": "y",
