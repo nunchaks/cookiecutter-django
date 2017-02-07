@@ -98,8 +98,8 @@ gulp.task('bower', function () {
       fileTypes: {
         html: {
           replace: {
-            js: '<script src="{% static \'{{filePath}}\' %}"></script>',
-            css: '<link rel="stylesheet" href="{% static \'{{filePath}}\' %}" />'
+            js: '<script src="{% raw %}{% static \'{{filePath}}\' %}{% endraw %}"></script>',
+            css: '<link rel="stylesheet" href="{% raw %}{% static \'{{filePath}}\' %}{% endraw %}" />'
           }
         }
       }
