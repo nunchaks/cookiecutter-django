@@ -1,10 +1,10 @@
-{% load staticfiles i18n %}
+{% raw %}{% load staticfiles i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}Test Project{% endblock title %}</title>
+    <title>{% block title %}{% endraw %}{{ cookiecutter.project_name }}{% raw %}{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -42,7 +42,7 @@
                 <div class="navbar nav_title">
                     <a href="{% url 'home' %}" class="site_title">
                         <i class="fa fa-paw"></i>
-                        <span>Test Project</span>
+                        <span>{% endraw %}{{ cookiecutter.project_name }}{% raw %}</span>
                     </a>
                 </div>
                 <div class="clearfix"></div>
@@ -251,5 +251,5 @@
 
 {% endblock javascript %}
 </body>
-</html>
+</html>{% endraw %}
 
