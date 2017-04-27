@@ -12,8 +12,11 @@ Cookiecutter Django
 .. image:: https://badges.gitter.im/Join Chat.svg
    :target: https://gitter.im/pydanny/cookiecutter-django?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
-
 Another Cookiecutter_ template for Django.
+
+* Documentation: https://cookiecutter-django.readthedocs.io/en/latest/
+* See Troubleshooting_ for common errors and obstacles
+* If you have problems with Cookiecutter Django, please open issues_ before sending emails to the maintainers. You will get a much, MUCH faster response.
 
 .. _cookiecutter: https://github.com/audreyr/cookiecutter
 

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # cookiecutter-django documentation build configuration file.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -43,8 +41,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'cookiecutter-django'
-copyright = u"2013-{}, Daniel Roy Greenfeld".format(now.year)
+project = 'Cookiecutter Django'
+copyright = "2013-2016, Daniel Roy Greenfeld".format(now.year)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

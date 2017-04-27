@@ -26,6 +26,6 @@ if docker == 'n':
 		elif choice in yes_options:
 			pass
 		else:
-			sys.stdout.write("Please respond with %s or %s"
+			sys.stdout.write("Please respond with %s or %s" 
 				% (', '.join([o for o in yes_options if not o == ''])
 					, ', '.join([o for o in no_options if not o == ''])))

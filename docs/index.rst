@@ -25,7 +25,7 @@ Contents:
    faq
    troubleshooting
    my-favorite-cookie
-   deployment-with-elastic-beanstalk
+   deployment-with-elastic-beanstalk   
 
 Indices and tables
 ==================
