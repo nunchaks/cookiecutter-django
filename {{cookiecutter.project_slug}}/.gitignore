@@ -77,3 +77,6 @@ mailhog
 {% endif %}
 
 staticfiles/
+
+.cache/
+

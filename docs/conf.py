@@ -188,8 +188,8 @@ latex_elements = {
 latex_documents = [
     ('index',
      'cookiecutter-django.tex',
-     u'cookiecutter-django Documentation',
-     u"cookiecutter-django", 'manual'),
+     'cookiecutter-django Documentation',
+     'cookiecutter-django', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -218,8 +218,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'cookiecutter-django', u'cookiecutter-django documentation',
-     [u"Daniel Roy Greenfeld"], 1)
+    ('index', 'Cookiecutter Django', 'Cookiecutter Django documentation',
+     ['Daniel Roy Greenfeld'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -232,8 +232,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'cookiecutter-django', u'cookiecutter-django documentation',
-     u"Daniel Roy Greenfeld", 'cookiecutter-django',
+    ('index', 'Cookiecutter Django', 'Cookiecutter Django documentation',
+     'Daniel Roy Greenfeld', 'Cookiecutter Django',
      'A Cookiecutter template for creating production-ready Django projects quickly.', 'Miscellaneous'),
 ]
 
