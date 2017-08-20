@@ -58,9 +58,6 @@ use_docker [y]
     Whether to use Docker_, separating the app and database into separate
     containers.
 
-use_heroku [n]
-    Add configuration to deploy the application to a Heroku_ instance.
-
 use_compressor [n]
     Use `Django Compressor`_ to minify and combine rendered JavaScript and CSS
     into cachable static resources.
