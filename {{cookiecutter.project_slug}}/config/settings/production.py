@@ -12,7 +12,6 @@ Production Configurations
 {% endif %}
 """
 
-from boto.s3.connection import OrdinaryCallingFormat
 {% if cookiecutter.use_sentry_for_error_reporting == 'y' %}
 import logging
 {% endif %}
@@ -115,68 +114,22 @@ INSTALLED_APPS += ['gunicorn', 'django_jenkins', 'django_extensions']
 
 # STORAGE CONFIGURATION
 # ------------------------------------------------------------------------------
-# Uploaded Media Files
-# ------------------------
-{% if cookiecutter.use_aws_for_media -%}
-# See: http://django-storages.readthedocs.io/en/latest/index.html
-INSTALLED_APPS += ['storages', ]
 
-AWS_ACCESS_KEY_ID = env('DJANGO_AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
-AWS_AUTO_CREATE_BUCKET = True
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
-
-# AWS cache settings, don't change unless you know what you're doing:
-AWS_EXPIRY = 60 * 60 * 24 * 7
-
-# TODO See: https://github.com/jschneier/django-storages/issues/47
-# Revert the following and use str after the above-mentioned bug is fixed in
-# either django-storage-redux or boto
-control = 'max-age=%d, s-maxage=%d, must-revalidate' % (AWS_EXPIRY, AWS_EXPIRY)
-AWS_HEADERS = {
-    'Cache-Control': bytes(control, encoding='latin-1')
-}
-
-# URL that handles the media served from MEDIA_ROOT, used for managing
-# stored files.
-#  See:http://stackoverflow.com/questions/10390244/
-from storages.backends.s3boto import S3BotoStorage
-StaticRootS3BotoStorage = lambda: S3BotoStorage(location='static')
-MediaRootS3BotoStorage = lambda: S3BotoStorage(location='media')
-DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
-
-MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
-{%- endif %}
 
 # Static Assets
 # ------------------------
 {% if cookiecutter.use_whitenoise == 'y' -%}
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-{% else %}
-{% if cookiecutter.use_aws_for_static -%}
-STATIC_URL = 'https://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
-STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
-# See: https://github.com/antonagestam/collectfast
-# For Django 1.7+, 'collectfast' should come before
-# 'django.contrib.staticfiles'
-AWS_PRELOAD_METADATA = True
-INSTALLED_APPS = ['collectfast', ] + INSTALLED_APPS
-{%- endif %}
-
 {%- endif %}
 
 
 {% if cookiecutter.use_compressor == 'y'-%}
 # COMPRESSOR
 # ------------------------------------------------------------------------------
-{% if cookiecutter.use_aws_for_media -%}
-COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-{%- endif %}
 COMPRESS_URL = STATIC_URL
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
 {%- endif %}
+
 # EMAIL
 # ------------------------------------------------------------------------------
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
@@ -203,29 +156,14 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
-{% if cookiecutter.use_elasticbeanstalk_experimental.lower() == 'y' -%}
-# Uses Amazon RDS for database hosting, which doesn't follow the Heroku-style spec
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('RDS_DB_NAME'),
-        'USER': env('RDS_USERNAME'),
-        'PASSWORD': env('RDS_PASSWORD'),
-        'HOST': env('RDS_HOSTNAME'),
-        'PORT': env('RDS_PORT'),
-    }
-}
-{% else %}
 # Use the Heroku-style specification
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 DATABASES['default'] = env.db('DATABASE_URL')
-{%- endif %}
 
 # CACHING
 # ------------------------------------------------------------------------------
+REDIS_LOCATION = '{0}/{1}'.format(env('REDIS_URL', default='redis://127.0.0.1:6379'), 0)
 
-REDIS_LOCATION = '{0}/{1}'.format(env('REDIS_URL', default='redis://127.0.0.1:6379'),
-                                  env.int('REDIS_NUM_DB', default=0))
 # Heroku URL does not pass the DB number, so we parse it in
 CACHES = {
     'default': {
