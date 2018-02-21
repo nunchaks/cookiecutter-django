@@ -109,7 +109,7 @@ X_FRAME_OPTIONS = 'DENY'
 ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['{{cookiecutter.domain_name}}', ])
 # END SITE CONFIGURATION
 
-INSTALLED_APPS += ['gunicorn', 'django_jenkins', 'django_extensions']
+INSTALLED_APPS += ['gunicorn', 'django_extensions']
 
 
 # STORAGE CONFIGURATION
@@ -142,7 +142,7 @@ INSTALLED_APPS += ['anymail', ]
 ANYMAIL = {
     "SENDGRID_API_KEY": env('DJANGO_SENDGRID_API_KEY'),
 }
-EMAIL_BACKEND = 'anymail.backends.sendgrid.SendGridBackend'
+EMAIL_BACKEND = 'anymail.backends.sendgrid.EmailBackend'
 
 
 # TEMPLATE CONFIGURATION
@@ -153,12 +153,15 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
     ('django.template.loaders.cached.Loader', [
         'django.template.loaders.filesystem.Loader', 'django.template.loaders.app_directories.Loader', ]),
 ]
+{% set _DEFAULT_CONN_MAX_AGE=60 %}
 
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Use the Heroku-style specification
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 DATABASES['default'] = env.db('DATABASE_URL')
+DATABASES['default']['CONN_MAX_AGE'] = env.int('CONN_MAX_AGE', default={{ _DEFAULT_CONN_MAX_AGE }})
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # CACHING
 # ------------------------------------------------------------------------------
@@ -287,8 +290,3 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 
 # Your production stuff: Below this line define 3rd party library settings
 # -------------------------------------------------------------------------
-PROJECT_APPS = LOCAL_APPS
-JENKINS_TASKS = (
-    'django_jenkins.tasks.run_pylint',
-    'django_jenkins.tasks.run_pep8',
-)
