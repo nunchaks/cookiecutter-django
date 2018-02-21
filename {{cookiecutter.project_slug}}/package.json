@@ -35,7 +35,6 @@
     {% if cookiecutter.custom_bootstrap_compilation == 'y' %}
     "gulp-concat": "^2.6.1",
     {% endif %}
-    //"gulp-connect": "^5.0.0",
     "gulp-cssnano": "^2.1.2",
     "gulp-imagemin": "^3.0.3",
     "gulp-pixrem": "^1.0.0",
