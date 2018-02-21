@@ -69,9 +69,6 @@ js_task_runner [1]
     2. Grunt_
     3. None
 
-use_lets_encrypt [n]
-    Use `Let's Encrypt`_ as the certificate authority for this project.
-
 open_source_license [1]
     Select a software license for the project. The choices are:
 
