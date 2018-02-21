@@ -10,32 +10,42 @@ var gulp = require('gulp'),
       sass = require('gulp-sass'),
       autoprefixer = require('gulp-autoprefixer'),
       cssnano = require('gulp-cssnano'),
+      {% if cookiecutter.custom_bootstrap_compilation == 'y' %}
+      concat = require('gulp-concat'),
+      {% endif %}
       rename = require('gulp-rename'),
       del = require('del'),
       plumber = require('gulp-plumber'),
       pixrem = require('gulp-pixrem'),
       uglify = require('gulp-uglify'),
       imagemin = require('gulp-imagemin'),
-      exec = require('child_process').exec,
+      spawn = require('child_process').spawn,
       runSequence = require('run-sequence'),
-      wiredep = require('wiredep').stream,
-      connect = require('gulp-connect');
-      //browserSync = require('browser-sync').create(),
-      //reload = browserSync.reload;
+      browserSync = require('browser-sync').create(),
+      reload = browserSync.reload;
 
 
 // Relative paths function
 var pathsConfig = function (appName) {
   this.app = "./" + (appName || pjson.name);
+  var vendorsRoot = 'node_modules/';
 
   return {
+    {% if cookiecutter.custom_bootstrap_compilation == 'y' %}
+    bootstrapSass: vendorsRoot + '/bootstrap/scss',
+    vendorsJs: [
+      vendorsRoot + 'jquery/dist/jquery.slim.js',
+      vendorsRoot + 'popper.js/dist/umd/popper.js',
+      vendorsRoot + 'bootstrap/dist/js/bootstrap.js'
+    ],
+    {% endif %}
     app: this.app,
     templates: this.app + '/templates',
     css: this.app + '/static/css',
     sass: this.app + '/static/sass',
     fonts: this.app + '/static/fonts',
     images: this.app + '/static/images',
-    js: this.app + '/static/js',
+    js: this.app + '/static/js'
   }
 };
 
@@ -48,15 +58,21 @@ var paths = pathsConfig();
 // Styles autoprefixing and minification
 gulp.task('styles', function() {
   return gulp.src(paths.sass + '/project.scss')
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass({
+      includePaths: [
+        {% if cookiecutter.custom_bootstrap_compilation == 'y' %}
+        paths.bootstrapSass,
+        {% endif %}
+        paths.sass
+      ]
+    }).on('error', sass.logError))
     .pipe(plumber()) // Checks for errors
     .pipe(autoprefixer({browsers: ['last 2 versions']})) // Adds vendor prefixes
     .pipe(pixrem())  // add fallbacks for rem units
     .pipe(gulp.dest(paths.css))
     .pipe(rename({ suffix: '.min' }))
     .pipe(cssnano()) // Minifies the result
-    .pipe(gulp.dest(paths.css))
-    .pipe(connect.reload())
+    .pipe(gulp.dest(paths.css));
 });
 
 // Javascript minification
@@ -65,79 +81,58 @@ gulp.task('scripts', function() {
     .pipe(plumber()) // Checks for errors
     .pipe(uglify()) // Minifies the js
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest(paths.js))
-    .pipe(connect.reload())
+    .pipe(gulp.dest(paths.js));
 });
+
+
+{% if cookiecutter.custom_bootstrap_compilation == 'y' %}
+// Vendor Javascript minification
+gulp.task('vendor-scripts', function() {
+  return gulp.src(paths.vendorsJs)
+    .pipe(concat('vendors.js'))
+    .pipe(gulp.dest(paths.js))
+    .pipe(plumber()) // Checks for errors
+    .pipe(uglify()) // Minifies the js
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest(paths.js));
+});
+{% endif %}
 
 // Image compression
 gulp.task('imgCompression', function(){
   return gulp.src(paths.images + '/*')
     .pipe(imagemin()) // Compresses PNG, JPEG, GIF and SVG images
     .pipe(gulp.dest(paths.images))
-    .pipe(connect.reload())
-});
-
-// Update if html change
-gulp.task('html', function () {
-  gulp.src(paths.templates + '/**/*.html')
-    .pipe(connect.reload())
 });
 
 // Run django server
-gulp.task('runServer', function() {
-  exec('python manage.py runserver', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
+gulp.task('runServer', function(cb) {
+  var cmd = spawn('python', ['manage.py', 'runserver'], {stdio: 'inherit'});
+  cmd.on('close', function(code) {
+    console.log('runServer exited with code ' + code);
+    cb(code);
   });
 });
 
-// Add bower scripts and styles automatically
-gulp.task('bower', function () {
-  gulp.src(paths.templates + '/**/*.html')
-    .pipe(wiredep({
-      fileTypes: {
-        html: {
-          replace: {
-            js: '<script src="{% raw %}{% static \'{{filePath}}\' %}{% endraw %}"></script>',
-            css: '<link rel="stylesheet" href="{% raw %}{% static \'{{filePath}}\' %}{% endraw %}" />'
-          }
-        }
-      }
-    }))
-    .pipe(gulp.dest(paths.templates));
-});
-
 // Browser sync server for live reload
-/*gulp.task('browserSync', function() {
+gulp.task('browserSync', function() {
     browserSync.init(
       [paths.css + "/*.css", paths.js + "*.js", paths.templates + '*.html'], {
         proxy:  "localhost:8000"
     });
-});*/
-gulp.task('connect', function() {
-  connect.server({
-    livereload: true
-  });
 });
-
-
-// Default task
-gulp.task('default', function() {
-    runSequence(['styles', 'scripts', 'imgCompression', 'bower'], 'runServer', 'connect', 'watch');
-});
-
-////////////////////////////////
-		//Watch//
-////////////////////////////////
 
 // Watch
 gulp.task('watch', function() {
 
   gulp.watch(paths.sass + '/*.scss', ['styles']);
-  gulp.watch(paths.js + '/*.js', ['scripts']);
+  gulp.watch(paths.js + '/*.js', ['scripts']).on("change", reload);
   gulp.watch(paths.images + '/*', ['imgCompression']);
-  gulp.watch(paths.templates + '/**/*.html', ['html']);
-  //gulp.watch(paths.js + '/*.js', ['scripts']).on("change", reload);
-  //gulp.watch(paths.templates + '/**/*.html').on("change", reload);
+  gulp.watch(paths.templates + '/**/*.html').on("change", reload);
 
+});
+
+// Default task
+gulp.task('default', function() {
+    runSequence(['styles', 'scripts', {% if cookiecutter.custom_bootstrap_compilation == 'y' %}'vendor-scripts', {% endif %}'imgCompression'], ['runServer', 'browserSync', 'watch']);
 });

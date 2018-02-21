@@ -5,39 +5,43 @@ volumes:
   postgres_backup: {}
 
 services:
-  django:
+  django:{% if cookiecutter.use_celery == 'y' %} &django{% endif %}
     build:
       context: .
-      dockerfile: ./compose/django/Dockerfile
+      dockerfile: ./compose/production/django/Dockerfile
     depends_on:
       - postgres
       - redis
-    command: /gunicorn.sh
     env_file: .env
+    command: /gunicorn.sh
+
 
   postgres:
-    build: ./compose/postgres
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - postgres_backup:/backups
     env_file: .env
 
+{% if cookiecutter.webserver == 'nginx' %}
   nginx:
-    build: ./compose/nginx
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
     depends_on:
       - django
-{% if cookiecutter.use_lets_encrypt == 'y' %}
       - certbot
     environment:
       - MY_DOMAIN_NAME={{ cookiecutter.domain_name }}
-{% endif %}
-    ports:
-      - "0.0.0.0:80:80"
-{% if cookiecutter.use_lets_encrypt == 'y' %}
-      - "0.0.0.0:443:443"
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/lib/letsencrypt:/var/lib/letsencrypt
+    env_file: .env
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
 
   certbot:
     image: quay.io/letsencrypt/letsencrypt
@@ -51,28 +55,35 @@ services:
       - "443"
     environment:
       - TERM=xterm
+{% elif cookiecutter.webserver == 'caddy' %}
+  caddy:
+    build:
+      context: .
+      dockerfile: ./compose/production/caddy/Dockerfile
+    depends_on:
+      - django
+    volumes:
+      - caddy:/root/.caddy
+    env_file: .env
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
 {% endif %}
 
   redis:
     image: redis:3.0
 {% if cookiecutter.use_celery == 'y' %}
   celeryworker:
-    build:
-      context: .
-      dockerfile: ./compose/django/Dockerfile
-    env_file: .env
+    <<: *django
     depends_on:
      - postgres
      - redis
-    command: celery -A {{cookiecutter.project_slug}}.taskapp worker -l INFO
+    command: /start-celeryworker.sh
 
   celerybeat:
-    build:
-      context: .
-      dockerfile: ./compose/django/Dockerfile
-    env_file: .env
+    <<: *django
     depends_on:
       - postgres
       - redis
-    command: celery -A {{cookiecutter.project_slug}}.taskapp beat -l INFO
+    command: /start-celerybeat.sh
 {% endif %}

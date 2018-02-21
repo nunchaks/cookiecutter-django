@@ -7,7 +7,7 @@
     "domain_name": "example.com",
     "version": "0.1.0",
     "timezone": "Europe/Paris",
-     "use_whitenoise": "y",
+    "use_whitenoise": "y",
     "use_aws_for_media": "n",
     "use_aws_for_static": "n",
     "use_celery": "n",
@@ -17,9 +17,11 @@
     "use_pycharm": "y",
     "windows": "n",
     "use_docker": "n",
+    "use_heroku": "n",
     "use_compressor": "n",
-    "postgresql_version": ["9.6", "9.5", "9.4", "9.3", "9.2"],
+    "postgresql_version": [ "10", "9.6", "9.5", "9.4", "9.3", "9.2"],
     "js_task_runner": ["Gulp", "Grunt", "None"],
-    "use_lets_encrypt": "y",
+    "custom_bootstrap_compilation": "n",
+    "web_server": ["nginx", "caddy"],
     "open_source_license": ["Not open source", "MIT", "BSD", "GPLv3", "Apache Software License 2.0"]
 }
