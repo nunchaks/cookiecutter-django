@@ -140,6 +140,14 @@ USE_L10N = True
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
 
+LANGUAGES = [
+  ('fr-fr', _('French')),
+]
+
+LOCALE_PATHS = [
+    str(APPS_DIR.path('locale')),
+]
+
 # TEMPLATE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#templates
